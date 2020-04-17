@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="re,writeup,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文为2018ISCC比赛逆向题writeup,文章最下面有相关题目、脚本下载 一、RSA256(100pt)题目告知了是RSA算法，RSA算法不多说了下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下： 1234-----BEGIN PUBLIC KEY-----  MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhANmelSKWptlg38J">
+<meta name="keywords" content="re,writeup">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2018ISCC_Re_Writeup">
+<meta property="og:url" content="http://yoursite.com/2018/05/29/2018ISCC/index.html">
+<meta property="og:site_name" content="Ren9IE&#39;s blog">
+<meta property="og:description" content="本文为2018ISCC比赛逆向题writeup,文章最下面有相关题目、脚本下载 一、RSA256(100pt)题目告知了是RSA算法，RSA算法不多说了下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下： 1234-----BEGIN PUBLIC KEY-----  MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhANmelSKWptlg38J">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/27/Chf1oD.md.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/27/ChvB7Q.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/28/C4DeeJ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/28/ChxrDO.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/28/ChxsbD.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/28/C4BfMD.jpg">
+<meta property="og:updated_time" content="2019-06-21T02:54:07.111Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2018ISCC_Re_Writeup">
+<meta name="twitter:description" content="本文为2018ISCC比赛逆向题writeup,文章最下面有相关题目、脚本下载 一、RSA256(100pt)题目告知了是RSA算法，RSA算法不多说了下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下： 1234-----BEGIN PUBLIC KEY-----  MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhANmelSKWptlg38J">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/05/27/Chf1oD.md.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/29/2018ISCC/">
+
+
+
+
+
+  <title>2018ISCC_Re_Writeup | Ren9IE's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/ren9ie" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ren9IE's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Ren9IE的小站，主要涉及PC端逆向分析、二进制漏洞研究等方面</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/29/2018ISCC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ren9IE">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ren9IE's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2018ISCC_Re_Writeup</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-29T10:08:46+08:00">
+                2018-05-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文为2018ISCC比赛逆向题writeup,文章最下面有相关题目、脚本下载</p>
+<h5 id="一、RSA256-100pt"><a href="#一、RSA256-100pt" class="headerlink" title="一、RSA256(100pt)"></a>一、RSA256(100pt)</h5><p>题目告知了是RSA算法，RSA算法不多说了<br>下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路)</p>
+<p>公钥内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN PUBLIC KEY-----  </span><br><span class="line">MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhANmelSKWptlg38JQSrpUW5RC1gp7npMK  </span><br><span class="line">/0UceOxV1VXrAgMBAAE=  </span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure>
+
+<p>直接把这个公钥丢到网站在线分析：<a href="http://tool.chacuo.net/cryptrsakeyparse" target="_blank" rel="noopener">RSA公私钥分解</a></p>
+<p><a href="https://imgchr.com/i/Chf1oD" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/27/Chf1oD.md.jpg" alt="Chf1oD.md.jpg"></a></p>
+<p>模数n = D99E952296A6D960DFC2504ABA545B9442D60A7B9E930AFF451C78EC55D555EB</p>
+<p>再到网站分解质因数：(注意这里只能填十进制数) <a href="http://factordb.com/" target="_blank" rel="noopener">在线分解质因数</a></p>
+<p>q = 302825536744096741518546212761194311477<br>p = 325045504186436346209877301320131277983</p>
+<p>这里推荐一个脚本 rsatool.py 专门用于RSA算法的脚本<br>加上参数运行脚本，生成私钥private.pem 命令如下：</p>
+<p><code>python rsatool.py -o private.pem -e 65537 -p 302825536744096741518546212761194311477 -q 325045504186436346209877301320131277983t</code></p>
+<p>最后再用openssl，命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">openssl rsautl -decrypt -in encrypted.message1 -inkey private.pem -out flag1.dec</span><br><span class="line"></span><br><span class="line">openssl rsautl -decrypt -in encrypted.message2 -inkey private.pem -out flag2.dec</span><br><span class="line">openssl rsautl -decrypt -in encrypted.message3 -inkey private.pem -out flag3.dec</span><br></pre></td></tr></table></figure>
+
+<h5 id="二、My-math-is-bad-150pt"><a href="#二、My-math-is-bad-150pt" class="headerlink" title="二、My math is bad(150pt)"></a>二、My math is bad(150pt)</h5><p>程序是64位elf文件，直接丢入IDA分析，可以知道关键函数两个<strong>400766</strong>和<strong>400B16</strong>，先进入400766函数中：先判断输入长度是否为32，我将这些看起来很乱的变量名称重新命名并设置了Hide casts</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">  if ( strlen(s0) == 32 )</span><br><span class="line">  &#123;</span><br><span class="line">    v3 = s4;</span><br><span class="line">    v4 = s5;</span><br><span class="line">    v5 = s6;</span><br><span class="line">    v6 = s7;</span><br><span class="line">    result = 0;</span><br><span class="line">    if ( s1 * *s0 - s3 * s2 == 2652042832920173142LL</span><br><span class="line">      &amp;&amp; 3LL * s2 + 4LL * s3 - s1 - 2LL * *s0 == 397958918</span><br><span class="line">      &amp;&amp; 3 * *s0 * s3 - s2 * s1 == 3345692380376715070LL</span><br><span class="line">      &amp;&amp; 27LL * s1 + *s0 - 11LL * s3 - s2 == 40179413815LL )</span><br><span class="line">    &#123;</span><br><span class="line">      srand(s2 ^ s1 ^ *s0 ^ s3);</span><br><span class="line">      v1 = rand() % 50;</span><br><span class="line">      v2 = rand() % 50;</span><br><span class="line">      v7 = rand() % 50;</span><br><span class="line">      v8 = rand() % 50;</span><br><span class="line">      v9 = rand() % 50;</span><br><span class="line">      v10 = rand() % 50;</span><br><span class="line">      v11 = rand() % 50;</span><br><span class="line">      v12 = rand() % 50;</span><br><span class="line">      if ( v6 * v2 + v3 * v1 - v4 - v5 == 61799700179LL</span><br><span class="line">        &amp;&amp; v6 + v3 + v5 * v8 - v4 * v7 == 48753725643LL</span><br><span class="line">        &amp;&amp; v3 * v9 + v4 * v10 - v5 - v6 == 59322698861LL</span><br><span class="line">        &amp;&amp; v5 * v12 + v3 - v4 - v6 * v11 == 51664230587LL )</span><br><span class="line">      &#123;</span><br><span class="line">        result = 1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    result = 0LL;</span><br><span class="line">  &#125;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以明显看出字符串被分为了8段int型的值(s0~s7)，我们需要先求出前4段，解方程组(四元一次方程组)</p>
+<p>z3求解器：z3是由微软公司开发的一个优秀的SMT求解器（也就定理证明器），它能够检查逻辑表达式的可满足性。linux上的安装方法如下：</p>
+<p><code>pip install z3-solver</code></p>
+<p>安装好后我们就可以在python脚本里调用z3这个库，下面上脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from z3 import *</span><br><span class="line">import struct</span><br><span class="line">s=[Int(&apos;serial%d&apos; % i) for i in range(4)]</span><br><span class="line">solver = Solver()</span><br><span class="line"></span><br><span class="line">solver.add(s[1]*s[0]-s[3]*s[2] == 2652042832920173142)</span><br><span class="line">solver.add(s[2]*3+s[3]*4-s[1]-s[0]*2 == 397958918)</span><br><span class="line">solver.add(s[0]*3*s[3]-s[2]*s[1] == 3345692380376715070)</span><br><span class="line">solver.add(s[1]*27+s[0]-s[3]*11-s[2] == 40179413815)</span><br><span class="line"></span><br><span class="line">print(solver.check())  #必须要有这个检查，格式基本固定的</span><br><span class="line">answer=solver.model()</span><br><span class="line">res = &quot;&quot;</span><br><span class="line">for d in s:</span><br><span class="line">	num = answer.eval(d).as_long()</span><br><span class="line">        print hex(num)</span><br><span class="line">	res += struct.pack(&apos;&lt;L&apos;, num)</span><br><span class="line">print repr(res)</span><br></pre></td></tr></table></figure>
+
+<p>通过解此方程组，我们轻易得到了前四段flag</p>
+<p>接着随机数种子是前四段异或运算后的值，这里不用去计算它，我们用gdb动态调试  </p>
+<p>gdb在0x4008EF下断，一步一步单步走，可以看到随机数种子的值为0x62d793b</p>
+<p><img src="https://s1.ax1x.com/2018/05/27/ChvB7Q.png" alt="ChvB7Q.png"></p>
+<p>最后获得的伪随机数分别为：0x16,0x27,0x2d,0x2d,0x23,0x29,0xd,0x24<br>下一步再解一个方程组，相同道理，直接上脚本了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">from z3 import *</span><br><span class="line">import struct</span><br><span class="line"></span><br><span class="line">data=[Int(&apos;serial%d&apos; % i) for i in range(4)]</span><br><span class="line">solver = Solver()</span><br><span class="line"></span><br><span class="line">v3 = data[0]</span><br><span class="line">v4 = data[1]</span><br><span class="line">v5 = data[2]</span><br><span class="line">v6 = data[3]</span><br><span class="line"></span><br><span class="line">v1 = 0x16</span><br><span class="line">v2 = 0x27</span><br><span class="line">v7 = 0x2d</span><br><span class="line">v8 = 0x2d</span><br><span class="line">v9 = 0x23</span><br><span class="line">v10 = 0x29</span><br><span class="line">v11 = 0xd</span><br><span class="line">v12 = 0x24</span><br><span class="line"></span><br><span class="line">solver.add(v6*v2+v3*v1-v4-v5 == 61799700179)</span><br><span class="line">solver.add(v6+v3+v5*v8-v4*v7 == 48753725643)</span><br><span class="line">solver.add(v3*v9+v4*v10-v5-v6 == 59322698861)</span><br><span class="line">solver.add(v5*v12+v3-v4-v6*v11 == 51664230587)</span><br><span class="line"></span><br><span class="line">print(solver.check())</span><br><span class="line">answer=solver.model()</span><br><span class="line">res = &quot;&quot;</span><br><span class="line">for d in data:</span><br><span class="line">	num = answer.eval(d).as_long()</span><br><span class="line">        print hex(num)</span><br><span class="line">	res += struct.pack(&apos;&lt;L&apos;, num)</span><br><span class="line">print repr(res)</span><br></pre></td></tr></table></figure>
+
+<p>获得整段字符串后，进入400B16函数中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">  v35 = *MK_FP(__FS__, 40LL);</span><br><span class="line">  v3 = 39;</span><br><span class="line">  v4 = -20;</span><br><span class="line">  v5 = 19;</span><br><span class="line">  v6 = 1;</span><br><span class="line">  v7 = 7;</span><br><span class="line">  v8 = 6;</span><br><span class="line">  v9 = 52;</span><br><span class="line">  v10 = -61;</span><br><span class="line">  v11 = 72;</span><br><span class="line">  v12 = -57;</span><br><span class="line">  v13 = -33;</span><br><span class="line">  v14 = -79;</span><br><span class="line">  v15 = -97;</span><br><span class="line">  v16 = -37;</span><br><span class="line">  v17 = 25;</span><br><span class="line">  v18 = 45;</span><br><span class="line">  v19 = 4;</span><br><span class="line">  v20 = -15;</span><br><span class="line">  v21 = -111;</span><br><span class="line">  v22 = 10;</span><br><span class="line">  v23 = -94;</span><br><span class="line">  v24 = -46;</span><br><span class="line">  v25 = 21;</span><br><span class="line">  v26 = -43;</span><br><span class="line">  v27 = -19;</span><br><span class="line">  v28 = 53;</span><br><span class="line">  v29 = -112;</span><br><span class="line">  v30 = -36;</span><br><span class="line">  v31 = -44;</span><br><span class="line">  v32 = 60;</span><br><span class="line">  v33 = 63;</span><br><span class="line">  v34 = -12;</span><br><span class="line">  printf(&quot;flag&#123;&quot;);</span><br><span class="line">  for ( i = 0; i &lt; strlen(s0); ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    srand(*&amp;s0[i]);</span><br><span class="line">    v0 = rand();</span><br><span class="line">    putchar(*(&amp;v3 + i) ^ v0 % 255);</span><br><span class="line">  &#125;</span><br><span class="line">  puts(&quot;&#125;&quot;);</span><br><span class="line">  return *MK_FP(__FS__, 40LL) ^ v35;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里是对输入的字符串进行简单的运算：<br>取每个字节作随机数种子，产生伪随机数，然后再与v3开始的数据进行异或操作</p>
+<p>直接输入咱们通过计算得到的字符串，即可得到最终的flag</p>
+<p><img src="https://s1.ax1x.com/2018/05/28/C4DeeJ.png" alt="C4DeeJ.png"></p>
+<h5 id="三、leftright-150pt"><a href="#三、leftright-150pt" class="headerlink" title="三、leftright(150pt)"></a>三、leftright(150pt)</h5><p>拿到题目后发现有UPX壳，不过也不用脱壳，ESP定律直接到达程序入口点<br>先查找一波字符串，发现疑似flag打乱后长度为29的字符串</p>
+<p><img src="https://s1.ax1x.com/2018/05/28/ChxrDO.png" alt="ChxrDO.png"></p>
+<p>那么如果为了节省时间，自然不必弄清被打乱的流程，先构造一个字符串，小写字母26个+3个数字：abcdefghijklmnopqrstuvwxyz123</p>
+<p>用OD动态调试，找到最终字符串比较的地方下断，输入我们构造的字符串，右边的寄存器窗口直接显示了已经打乱后的另一串字符串为：onpqmlrskjtuihvwgfxyedz1cb23a</p>
+<p><img src="https://s1.ax1x.com/2018/05/28/ChxsbD.png" alt="ChxsbD.png"></p>
+<p>接下来就根据这最终打乱后的每个字符的位置，写出脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">str0 = &quot;s_imsaplw_e_siishtnt&#123;g_ialt&#125;F&quot;  </span><br><span class="line">str1 = &quot;abcdefghijklmnopqrstuvwxyz123&quot;  </span><br><span class="line">str2 = &quot;onpqmlrskjtuihvwgfxyedz1cb23a&quot;  </span><br><span class="line">flag = &quot;&quot;</span><br><span class="line">for i in str1:  </span><br><span class="line">    position=str2.find(i)  </span><br><span class="line">    flag+=str0[position]</span><br><span class="line"></span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
+
+<h5 id="四、obfuscation-and-encode（250pt）"><a href="#四、obfuscation-and-encode（250pt）" class="headerlink" title="四、obfuscation and encode（250pt）"></a>四、obfuscation and encode（250pt）</h5><p>这道题做的时间比较长，主要里面有很多混淆的代码，一开始没找到关键的地方</p>
+<p>丢入IDA中分析，两个关键的函数<strong>fencode</strong>和<strong>encode</strong>，可以明显看出是我们输入的字符串经过两层加密后与 “lUFBuT7hADvItXEGn7KgTEjqw8U5VQUq” 进行比较，相同即为正确flag.</p>
+<p>在fencode函数的代码中，采用了很多while进行混淆，其实关键的地方也就三处</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.if ( len != 24 ) //这里判断了字符串总长度为24</span><br><span class="line"></span><br><span class="line">2.sum += *(&amp;str[4 * v11] + v8) * *(&amp;m[4 * v10] + v8) //这里v11&lt;6 v10&lt;4 v8&lt;4</span><br><span class="line">输入的str字符串与m字符串相乘后求和，是个4x4矩阵乘法</span><br><span class="line"></span><br><span class="line">3.v6 = i++; str_out[v6] = sum % 127; //这里输出str0 % 127运算后的字符串</span><br></pre></td></tr></table></figure>
+
+<p>静态分析的话，沿着控制流分析一波整个流程类似于以下C代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">for(v11=0; v11&lt;6; v11++)</span><br><span class="line">&#123;</span><br><span class="line">  for(v10=0; v10&lt;4; v10++)</span><br><span class="line">  &#123;</span><br><span class="line">    sum = 0;</span><br><span class="line">    for(v8=0; v8&lt;4; v8++)</span><br><span class="line">    &#123;</span><br><span class="line">      sum += str[4 * v11 + v8] * m[4 * v10 + v8];</span><br><span class="line">    &#125;</span><br><span class="line">    str_out[i++] = sum % 127;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>嵌套循环运算后输出str_out字符串，在encode中对str_out再次加密，找到算法特征处：<img src="https://s1.ax1x.com/2018/05/28/C4BfMD.jpg" alt="C4BfMD.jpg"></p>
+<p>从这里可以看出这是一个的base64的算法，不过编码表被改为了：<br>“FeVYKw6a0lDIOsnZQ5EAf2MvjS1GUiLWPTtH4JqRgu3dbC8hrcNo9/mxzpXBky7+”<br>base64加密后的字符串与”lUFBuT7hADvItXEGn7KgTEjqw8U5VQUq” 比较</p>
+<p>那么思路已经很明显了，第一层加密同样用Z3求解器解方程组(爆破也可以，但等的太久太久了)，第二层加密在网上找个脚本改下编码表然后解码</p>
+<p>先上base64解密脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">from numpy import *</span><br><span class="line">import numpy as np</span><br><span class="line">import base64</span><br><span class="line">import string</span><br><span class="line">import chardet</span><br><span class="line">import ctypes</span><br><span class="line"></span><br><span class="line">base64_charset = &apos;FeVYKw6a0lDIOsnZQ5EAf2MvjS1GUiLWPTtH4JqRgu3dbC8hrcNo9/mxzpXBky7+&apos;</span><br><span class="line"></span><br><span class="line">letters = list(base64_charset)</span><br><span class="line"></span><br><span class="line">def encode(input_str):</span><br><span class="line">    # 对每一个字节取ascii数值或unicode数值，然后转换为2进制</span><br><span class="line">    str_ascii_list = [&apos;&#123;:0&gt;8&#125;&apos;.format(str(bin(ord(i))).replace(&apos;0b&apos;, &apos;&apos;))</span><br><span class="line">                      for i in input_str]</span><br><span class="line">    output_str = &apos;&apos;</span><br><span class="line">    # 不够3的整数倍 补齐所需要的次数</span><br><span class="line">    equal_num = 0</span><br><span class="line">    while str_ascii_list:</span><br><span class="line">        temp_list = str_ascii_list[:3]</span><br><span class="line">        if len(temp_list) != 3:</span><br><span class="line">            while len(temp_list) &lt; 3:</span><br><span class="line">                equal_num += 1</span><br><span class="line">                temp_list += [&apos;0&apos;*8]</span><br><span class="line">        temp_str = &apos;&apos;.join(temp_list)</span><br><span class="line">        # 三个8字节的二进制 转换为4个6字节的二进制</span><br><span class="line">        temp_str_list = [temp_str[x:x+6] for x in [0, 6, 12, 18]]</span><br><span class="line">        # 二进制转为10进制</span><br><span class="line">        temp_str_list = [int(x, 2) for x in temp_str_list]</span><br><span class="line">        # 判断是否为补齐的字符 做相应的处理</span><br><span class="line">        if equal_num:</span><br><span class="line">            temp_str_list = temp_str_list[0:4-equal_num]</span><br><span class="line">        output_str += &apos;&apos;.join([letters[x] for x in temp_str_list])</span><br><span class="line">        str_ascii_list = str_ascii_list[3:]</span><br><span class="line">    output_str = output_str + &apos;=&apos; * equal_num</span><br><span class="line">    #print(output_str)</span><br><span class="line">    return output_str</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def decode(input_str):</span><br><span class="line">    # 对每一个字节取索引，然后转换为2进制</span><br><span class="line">    str_ascii_list = [&apos;&#123;:0&gt;6&#125;&apos;.format(str(bin(letters.index(i))).replace(&apos;0b&apos;, &apos;&apos;))</span><br><span class="line">                      for i in input_str if i != &apos;=&apos;]</span><br><span class="line">    output_str = &apos;&apos;</span><br><span class="line">    equal_num = input_str.count(&apos;=&apos;)</span><br><span class="line">    while str_ascii_list:</span><br><span class="line">        temp_list = str_ascii_list[:4]</span><br><span class="line">        temp_str = &apos;&apos;.join(temp_list)</span><br><span class="line">        # 补够8位</span><br><span class="line">        if len(temp_str) % 8 != 0:</span><br><span class="line">            temp_str = temp_str[0:-1*equal_num*2]</span><br><span class="line">        # 4个6字节的二进制  转换  为三个8字节的二进制 </span><br><span class="line">        temp_str_list = [temp_str[x:x+8] for x in [0, 8, 16]]</span><br><span class="line">        # 二进制转为10进制</span><br><span class="line">        temp_str_list = [int(x, 2) for x in temp_str_list if x]</span><br><span class="line">        output_str += &apos;&apos;.join([chr(x) for x in temp_str_list])</span><br><span class="line">        str_ascii_list = str_ascii_list[4:]</span><br><span class="line">    #print(output_str)</span><br><span class="line">    return output_str</span><br><span class="line"></span><br><span class="line">str0 = decode(&quot;lUFBuT7hADvItXEGn7KgTEjqw8U5VQUq&quot;)</span><br><span class="line">int = [0]*24</span><br><span class="line">for i in range(24):</span><br><span class="line">  int[i] = ord(str0[i])</span><br><span class="line">print int</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">from z3 import*</span><br><span class="line"></span><br><span class="line">key = [37, 192, 59, 166, 31, 175, 76, 165, 203, 139, 164, 155, 59, 225, 40, 133, 38, 38, 22, 231, 17, 9, 7, 38]</span><br><span class="line">m =[2, 2, 4, 4294967291, 1, 1, 3, 4294967293, 4294967295, 4294967294, 4294967293, 4, 4294967295, 0, 4294967294, 2]</span><br><span class="line"></span><br><span class="line">f1 = lambda x1, x2, x3, x4: (x1 * m[0] + x2 * m[1] + x3 * m[2] + x4 * m[3]) &amp; 0xff</span><br><span class="line">f2 = lambda x1, x2, x3, x4: (x1 * m[4] + x2 * m[5] + x3 * m[6] + x4 * m[7]) &amp; 0xff</span><br><span class="line">f3 = lambda x1, x2, x3, x4: (x1 * m[8] + x2 * m[9] + x3 * m[10] + x4 * m[11]) &amp; 0xff</span><br><span class="line">f4 = lambda x1, x2, x3, x4: (x1 * m[12] + x2 * m[13] + x3 * m[14] + x4 * m[15]) &amp; 0xff</span><br><span class="line"></span><br><span class="line">s = Solver()</span><br><span class="line">flag = [BitVec(str(i), 16) for i in  range(24)]</span><br><span class="line"></span><br><span class="line">for i in xrange(6):</span><br><span class="line">    s.add(f1(flag[4 * i + 0], flag[4 * i + 1], flag[4 * i + 2], flag[4 * i + 3]) == key[i * 4 + 0])</span><br><span class="line">    s.add(f2(flag[4 * i + 0], flag[4 * i + 1], flag[4 * i + 2], flag[4 * i + 3]) == key[i * 4 + 1])</span><br><span class="line">    s.add(f3(flag[4 * i + 0], flag[4 * i + 1], flag[4 * i + 2], flag[4 * i + 3]) == key[i * 4 + 2])</span><br><span class="line">    s.add(f4(flag[4 * i + 0], flag[4 * i + 1], flag[4 * i + 2], flag[4 * i + 3]) == key[i * 4 + 3])</span><br><span class="line"></span><br><span class="line">for i in xrange(24):</span><br><span class="line">    s.add(flag[i]&gt;=32)</span><br><span class="line">    s.add(flag[i]&lt;=127)</span><br><span class="line"></span><br><span class="line">print(s.check())</span><br><span class="line">answer=s.model()</span><br><span class="line">res = &quot;&quot;</span><br><span class="line">for i in range(24):</span><br><span class="line">  res += chr(answer.eval(flag[i]).as_long())</span><br><span class="line">print repr(res)</span><br></pre></td></tr></table></figure>
+
+<p><a href><a href="https://pan.baidu.com/s/1_acOeyZZUsiJlVneeKI9kw" target="_blank" rel="noopener">题目打包下载</a></a></p>
+<p>密码：d1bm</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/re/" rel="tag"><i class="fa fa-tag"></i> re</a>
+          
+            <a href="/tags/writeup/" rel="tag"><i class="fa fa-tag"></i> writeup</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/20/2018铁三总决个人赛writeup/" rel="prev" title="2018铁三总决个人赛writeup">
+                2018铁三总决个人赛writeup <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ren9IE</p>
+              <p class="site-description motion-element" itemprop="description">欢迎您访问本小站~~~</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://binarysec.top/" title="Kaka" target="_blank">Kaka</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、RSA256-100pt"><span class="nav-number">1.</span> <span class="nav-text">一、RSA256(100pt)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、My-math-is-bad-150pt"><span class="nav-number">2.</span> <span class="nav-text">二、My math is bad(150pt)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、leftright-150pt"><span class="nav-number">3.</span> <span class="nav-text">三、leftright(150pt)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四、obfuscation-and-encode（250pt）"><span class="nav-number">4.</span> <span class="nav-text">四、obfuscation and encode（250pt）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ren9IE</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
