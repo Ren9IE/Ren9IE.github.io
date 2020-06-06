@@ -88,7 +88,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/06/06/tyRsxO.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/06/06/tyI8R1.jpg">
 <meta property="article:published_time" content="2019-04-26T15:34:11.000Z">
-<meta property="article:modified_time" content="2020-06-06T07:16:08.814Z">
+<meta property="article:modified_time" content="2020-06-06T07:22:31.344Z">
 <meta property="article:author" content="Ren9IE">
 <meta property="article:tag" content="算法，汇编，asm">
 <meta name="twitter:card" content="summary">
@@ -361,7 +361,8 @@
       
 
       
-        <pre><code>大三上学期有计算机操作系统原理这门课，老师要求每位同学期末前用代码实现补码一位乘法算法，当时正好在看王爽的汇编书籍，于是干脆用16位汇编实现了此算法。但是当时我也不知道自己怎么想的，没有用neg、not等求补的指令，反而是运用了字符串，获取一个字符串后，判断碰见“1”取“0”，碰见“0”取“1”。这样的代价就是，会用接近100行汇编代码实现一个求补的功能，更别说还要实现变补、位移的功能。所以最终的代码多达600多行，十分的冗余，不过全当练习了，233333。</code></pre><h2 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h2><h3 id="运算规则"><a href="#运算规则" class="headerlink" title="运算规则"></a>运算规则</h3><p>(1) 如果 yn = yn+1，部分积 [ zi ] 加0，再右移一位；<br>(2) 如果 yn yn+1 = 01，部分积加[ x ]补，再右移一位；<br>(3) 如果 yn yn+1 = 10，部分积加[ - x]补，再右移一位；<br>这样重复进行 n+1 步，但最后一步不移位。包括一位符号位，所得乘积为 2n+1 位，其中 n 为尾数位数。</p>
+        <p>大三上学期有计算机操作系统原理这门课，老师要求每位同学期末前用代码实现补码一位乘法算法，当时正好在看王爽的汇编书籍，于是干脆用16位汇编实现了此算法。但是当时我也不知道自己怎么想的，没有用neg、not等求补的指令，反而是运用了字符串，获取一个字符串后，判断碰见“1”取“0”，碰见“0”取“1”。这样的代价就是，会用接近100行汇编代码实现一个求补的功能，更别说还要实现变补、位移的功能。所以最终的代码多达600多行，十分的冗余，不过全当练习了，233333。</p>
+<h2 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h2><h3 id="运算规则"><a href="#运算规则" class="headerlink" title="运算规则"></a>运算规则</h3><p>(1) 如果 yn = yn+1，部分积 [ zi ] 加0，再右移一位；<br>(2) 如果 yn yn+1 = 01，部分积加[ x ]补，再右移一位；<br>(3) 如果 yn yn+1 = 10，部分积加[ - x]补，再右移一位；<br>这样重复进行 n+1 步，但最后一步不移位。包括一位符号位，所得乘积为 2n+1 位，其中 n 为尾数位数。</p>
 <h3 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h3><p><a href="https://imgchr.com/i/tyRsxO" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/06/06/tyRsxO.jpg" alt="tyRsxO.jpg"></a></p>
 <h2 id="程序演示"><a href="#程序演示" class="headerlink" title="程序演示"></a>程序演示</h2><p>运行汇编的环境用的是DOSBox,下载地址<a href="http://sourceforge.net/projects/dosbox/" target="_blank" rel="noopener">在这</a>，编译环境用的masm5.0，下载地址<a href="https://github.com/jie12366/MASM" target="_blank" rel="noopener">在这</a><br><a href="https://imgchr.com/i/tyI8R1" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/06/06/tyI8R1.jpg" alt="tyI8R1.jpg"></a></p>
 <h2 id="汇编代码"><a href="#汇编代码" class="headerlink" title="汇编代码"></a>汇编代码</h2><p>真的我自己都觉得十分冗余了，但是作为初学汇编的练习也很不错，成品.asm文件在我的<a href="https://github.com/Ren9IE/Complement-one-digit-multiplication" target="_blank" rel="noopener">github</a>. </p>
@@ -484,7 +485,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -497,7 +498,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
